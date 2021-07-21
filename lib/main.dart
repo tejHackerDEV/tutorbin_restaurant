@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tutorbin_restaurant/bindings/home_binding.dart';
 import 'package:tutorbin_restaurant/screens/home_screen.dart';
+import 'package:tutorbin_restaurant/utils/Strings.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Restaurant',
+      title: Strings.appName,
       initialRoute: '/home',
       getPages: [
         GetPage(name: '/home', page: () => HomeScreen(), binding: HomeBinding())

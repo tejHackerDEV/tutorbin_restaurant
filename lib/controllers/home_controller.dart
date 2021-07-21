@@ -17,4 +17,14 @@ class HomeController extends GetxController {
     if (isFetching.isTrue)
       isFetching.toggle(); // notify data fetching is completed
   }
+
+  void addToCart({required int categoryIndex, required int itemIndex}) {
+    categories[categoryIndex].items[itemIndex].count++;
+    categories.refresh();
+  }
+
+  void removeFromCart({required int categoryIndex, required int itemIndex}) {
+    categories[categoryIndex].items[itemIndex].count--;
+    categories.refresh();
+  }
 }
