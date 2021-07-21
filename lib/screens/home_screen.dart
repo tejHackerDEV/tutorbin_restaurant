@@ -45,14 +45,15 @@ class HomeScreen extends StatelessWidget {
                 actions: <Widget>[
                   TextButton(
                     child: Text(Strings.proceed),
-                    onPressed: () {
+                    onPressed: () async {
                       Get.back();
+                      // wait until order is placed
+                      await controller.placeOrder();
                       Get.snackbar(
                         Strings.order,
                         Strings.placedOrder,
                         snackPosition: SnackPosition.BOTTOM,
                       );
-                      controller.fetchMenu();
                     },
                   ),
                   TextButton(

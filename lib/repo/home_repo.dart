@@ -1,27 +1,62 @@
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:tutorbin_restaurant/models/category.dart';
 import 'package:tutorbin_restaurant/models/item.dart';
+import 'package:tutorbin_restaurant/models/order.dart';
 
 class HomeRepo {
+  final OrderProvider _orderProvider;
+  HomeRepo(this._orderProvider);
+
   Future<List<Category>> fetchMenu() {
     // retrieve data after 3seconds to mimic like fetching from api
-    return Future.delayed(const Duration(seconds: 3), () {
+    return Future.delayed(const Duration(seconds: 3), () async {
       List<Category> categories = [];
+
+      // Open Database Connection
+      final databasesPath = await getDatabasesPath();
+      String path = join(databasesPath, 'tutorbin.db');
+      await _orderProvider.open(path);
+      List<Order> topThreeOrders = await _orderProvider.getTopThreeOrders();
+      List<Item> topThreeItems = []; // to store top three items
+
       // iterate menu & add them to list based on categories
       Menu.forEach((key, value) {
         List<Item> items = [];
         value.forEach((element) {
-          items.add(
-            Item(
-              element['name'].toString(),
-              double.parse(element['price'].toString()),
-              element['inStock'].toString().toLowerCase() == 'true',
-            ),
+          final item = Item(
+            element['name'].toString(),
+            (element['price'] as int).toDouble(),
+            element['instock'] as bool,
           );
+
+          // add top items
+          // if top three items already added don't do anything
+          if (topThreeItems.length != 3) {
+            for (int i = 0; i < topThreeOrders.length; ++i) {
+              if (topThreeOrders[i].name.toLowerCase() ==
+                  item.name.toLowerCase()) {
+                topThreeItems.add(item); // add the item to the top three items
+              }
+            }
+          }
+
+          // add normal items
+          items.add(item);
         });
         categories.add(Category(key, items));
       });
+
+      // finally add top items if they are not empty
+      if (topThreeItems.isNotEmpty) {
+        categories.insert(0, Category('Popular Items', topThreeItems));
+      }
       return categories;
     });
+  }
+
+  Future placeOrder(List<Order> orders) async {
+    await _orderProvider.insertAll(orders);
   }
 }
 
