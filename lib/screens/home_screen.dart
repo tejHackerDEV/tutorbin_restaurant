@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:tutorbin_restaurant/controllers/home_controller.dart';
 import 'package:tutorbin_restaurant/models/category.dart';
 import 'package:tutorbin_restaurant/utils/Strings.dart';
@@ -19,7 +20,7 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Obx(() {
           final categories = controller.categories;
-          return categories.isEmpty
+          return controller.isFetching.isTrue || categories.isEmpty
               ? Center(child: CircularProgressIndicator())
               : ListView.separated(
                   separatorBuilder: (context, index) => Divider(),
@@ -32,34 +33,64 @@ class HomeScreen extends StatelessWidget {
         }),
       ),
       bottomNavigationBar: Obx(() {
+        final totalPrice = controller.totalPrice;
         return Visibility(
-          visible: controller.totalPrice > 0,
-          child: Container(
-            margin: EdgeInsets.only(left: 5.0, right: 5.0, bottom: 5.0),
-            padding: EdgeInsets.all(20.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
-              color: Colors.amber,
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  Strings.placeOrder,
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
+          visible: totalPrice > 0,
+          child: GestureDetector(
+            onTap: () {
+              Get.defaultDialog(
+                title: Strings.alertTitle,
+                content: Text(
+                    '${Strings.alertMessage} ${Strings.rupeesSymbol} $totalPrice'),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text(Strings.proceed),
+                    onPressed: () {
+                      Get.back();
+                      Get.snackbar(
+                        Strings.order,
+                        Strings.placedOrder,
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                      controller.fetchMenu();
+                    },
                   ),
-                ),
-                Text(
-                  '${Strings.rupeesSymbol} ${controller.totalPrice}',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
+                  TextButton(
+                    child: Text(Strings.cancel),
+                    onPressed: () {
+                      Get.back();
+                    },
                   ),
-                )
-              ],
+                ],
+              );
+            },
+            child: Container(
+              margin: EdgeInsets.only(left: 5.0, right: 5.0, bottom: 5.0),
+              padding: EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colors.amber,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    Strings.placeOrder,
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '${Strings.rupeesSymbol} ${controller.totalPrice}',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         );

@@ -14,6 +14,8 @@ class HomeController extends GetxController {
 
   /// Fetches Menu from the repo
   void fetchMenu() async {
+    totalPrice.value = 0;
+    categories = RxList.empty();
     if (isFetching.isFalse) isFetching.toggle(); // notify data is fetching
     categories.addAll(await _repo.fetchMenu()); // add items to categories
     if (isFetching.isTrue)
