@@ -11,8 +11,9 @@ class Order {
   final String name;
   final double price;
   final int orderedTime;
+  bool isBestSeller;
 
-  Order(this.id, this.name, this.price, this.orderedTime);
+  Order(this.id, this.name, this.price, this.orderedTime, this.isBestSeller);
 
   Map<String, Object?> toMap() {
     var map = <String, Object?>{
@@ -30,7 +31,8 @@ class Order {
       : id = map[columnId] as int,
         name = map[columnName] as String,
         price = map[columnPrice] as double,
-        orderedTime = map[columnOrderedTime] as int;
+        orderedTime = map[columnOrderedTime] as int,
+        isBestSeller = false;
 }
 
 class OrderProvider {
@@ -69,6 +71,11 @@ class OrderProvider {
       print(element.toString());
       orders.add(Order.fromMap(element));
     });
+
+    // if orders are not empty then mark the first order as best seller
+    if (orders.isNotEmpty) {
+      orders.elementAt(0).isBestSeller = true;
+    }
     return orders;
   }
 

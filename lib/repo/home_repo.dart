@@ -28,15 +28,21 @@ class HomeRepo {
             element['name'].toString(),
             (element['price'] as int).toDouble(),
             element['instock'] as bool,
+            false,
           );
 
           // add top items
           // if top three items already added don't do anything
           if (topThreeItems.length != 3) {
             for (int i = 0; i < topThreeOrders.length; ++i) {
-              if (topThreeOrders[i].name.toLowerCase() ==
-                  item.name.toLowerCase()) {
+              final topOrder = topThreeOrders[i];
+              if (topOrder.name.toLowerCase() == item.name.toLowerCase()) {
                 topThreeItems.add(item); // add the item to the top three items
+
+                // if the order is best seller then mark the item as bestSeller
+                if (topOrder.isBestSeller) {
+                  item.isBestSeller = true;
+                }
               }
             }
           }

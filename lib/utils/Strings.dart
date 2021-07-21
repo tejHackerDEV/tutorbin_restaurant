@@ -9,4 +9,5 @@ class Strings {
   static const cancel = 'Cancel';
   static const order = 'Order';
   static const placedOrder = 'Placed successfully';
+  static const bestSeller = 'Best Seller';
 }

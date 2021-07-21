@@ -136,13 +136,37 @@ class HomeScreen extends StatelessWidget {
           return Container(
             alignment: Alignment.centerLeft,
             child: ListTile(
-              title: Text(
-                item.name,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+              title: Row(
+                children: [
+                  Text(
+                    item.name,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(width: 15.0),
+                  Visibility(
+                    visible: item.isBestSeller,
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.red),
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Colors.red),
+                      child: Text(
+                        Strings.bestSeller,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
               subtitle: Text(
                 '${Strings.rupeesSymbol} ${item.price.toString()}',

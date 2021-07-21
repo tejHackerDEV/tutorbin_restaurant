@@ -32,7 +32,13 @@ class HomeController extends GetxController {
     totalPrice.value += item.price;
     item.count++;
     cartItems.add(
-      Order(null, item.name, item.price, DateTime.now().millisecondsSinceEpoch),
+      Order(
+        null,
+        item.name,
+        item.price,
+        DateTime.now().millisecondsSinceEpoch,
+        false,
+      ),
     );
     categories.refresh();
   }
