@@ -14,6 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: Strings.appName,
+      theme: ThemeData(
+        primaryColor: Colors.amber,
+        accentColor: Colors.amberAccent,
+      ),
       initialRoute: '/home',
       getPages: [
         GetPage(name: '/home', page: () => HomeScreen(), binding: HomeBinding())

@@ -35,7 +35,12 @@ class HomeScreen extends StatelessWidget {
         return Visibility(
           visible: controller.totalPrice > 0,
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+            margin: EdgeInsets.only(left: 5.0, right: 5.0, bottom: 5.0),
+            padding: EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              color: Colors.amber,
+            ),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,6 +74,10 @@ class HomeScreen extends StatelessWidget {
     final HomeController controller,
   ) {
     return ExpansionTile(
+      textColor: Colors.black,
+      iconColor: Colors.black,
+      collapsedTextColor: Colors.black,
+      collapsedIconColor: Colors.black,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -122,8 +131,9 @@ class HomeScreen extends StatelessWidget {
                   width: 120.0,
                   height: 40.0,
                   decoration: BoxDecoration(
-                    border: Border.all(width: 2.0),
+                    border: Border.all(width: 2.0, color: Colors.amberAccent),
                     borderRadius: BorderRadius.circular(20.0),
+                    color: item.count == 0 ? Colors.white : Colors.amberAccent,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -138,6 +148,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                           child: Icon(
                             Icons.remove,
+                            color: Colors.black,
                             size: 20.0,
                           ),
                         ),
@@ -156,6 +167,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                           child: Icon(
                             Icons.add,
+                            color: Colors.black,
                             size: 20.0,
                           ),
                         ),
