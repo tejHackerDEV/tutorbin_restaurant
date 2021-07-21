@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tutorbin_restaurant/controllers/home_controller.dart';
@@ -30,6 +31,34 @@ class HomeScreen extends StatelessWidget {
                 );
         }),
       ),
+      bottomNavigationBar: Obx(() {
+        return Visibility(
+          visible: controller.totalPrice > 0,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  Strings.placeOrder,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '${Strings.rupeesSymbol} ${controller.totalPrice}',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 
@@ -75,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               subtitle: Text(
-                '₹ ${item.price.toString()}',
+                '${Strings.rupeesSymbol} ${item.price.toString()}',
                 style: TextStyle(
                   fontSize: 16.0,
                 ),

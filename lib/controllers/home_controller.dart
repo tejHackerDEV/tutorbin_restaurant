@@ -10,6 +10,8 @@ class HomeController extends GetxController {
       false.obs; // used to know whether app is requesting data from repo
   RxList<Category> categories = RxList.empty();
 
+  final totalPrice = 0.toDouble().obs;
+
   /// Fetches Menu from the repo
   void fetchMenu() async {
     if (isFetching.isFalse) isFetching.toggle(); // notify data is fetching
@@ -19,12 +21,16 @@ class HomeController extends GetxController {
   }
 
   void addToCart({required int categoryIndex, required int itemIndex}) {
-    categories[categoryIndex].items[itemIndex].count++;
+    final item = categories[categoryIndex].items[itemIndex];
+    totalPrice.value += item.price;
+    item.count++;
     categories.refresh();
   }
 
   void removeFromCart({required int categoryIndex, required int itemIndex}) {
-    categories[categoryIndex].items[itemIndex].count--;
+    final item = categories[categoryIndex].items[itemIndex];
+    totalPrice.value -= item.price;
+    item.count--;
     categories.refresh();
   }
 }
