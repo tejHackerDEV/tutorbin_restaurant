@@ -175,7 +175,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               trailing: GestureDetector(
-                onTap: item.count == 0
+                onTap: (item.inStock) && (item.count == 0)
                     ? () {
                         controller.addToCart(
                           categoryIndex: categoryIndex,
@@ -191,6 +191,14 @@ class HomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20.0),
                     color: item.count == 0 ? Colors.white : Colors.amberAccent,
                   ),
+                  // if "in-stock" don't do anything if not make it grey out
+                  foregroundDecoration: item.inStock
+                      ? null
+                      : BoxDecoration(
+                          color: Colors.grey,
+                          backgroundBlendMode: BlendMode.saturation,
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
