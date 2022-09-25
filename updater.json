@@ -3,5 +3,6 @@
   "body":"An new version is available",
   "versionName":"2.0.0",
   "versionCode":70,
-  "minVersionCode":69
+  "minVersionCode":69,
+  "shoudlForceUpdate": true,
 }
