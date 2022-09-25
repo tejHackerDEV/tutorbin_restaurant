@@ -4,5 +4,5 @@
   "versionName":"2.0.0",
   "versionCode":70,
   "minVersionCode":69,
-  "shoudlForceUpdate": true
+  "shouldForceUpdate": true
 }
