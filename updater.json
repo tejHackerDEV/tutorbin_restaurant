@@ -5,5 +5,6 @@
   "versionCode":79,
   "minVersionName":"2.0.0",
   "minVersionCode":79,
-  "shouldForceUpdate": true
+  "shouldForceUpdate": true,
+  "shouldShowSignupButton": false
 }
