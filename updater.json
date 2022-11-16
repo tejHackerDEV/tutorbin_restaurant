@@ -7,5 +7,5 @@
   "minVersionName":"2.1.2",
   "minVersionCode":86,
   "shouldForceUpdate": true,
-  "shouldShowSignupButton": false
+  "shouldShowSignupButton": true
 }
