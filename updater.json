@@ -2,10 +2,10 @@
   
   "title":"Please update your app",
   "body":"An new version is available",
-  "versionName":"2.2.0",
-  "versionCode":87,
-  "minVersionName":"2.2.0",
-  "minVersionCode":87,
+  "versionName":"2.3.1",
+  "versionCode":90,
+  "minVersionName":"2.3.1",
+  "minVersionCode":90,
   "shouldForceUpdate": true,
   "shouldShowSignupButton": true
 }
